@@ -1,0 +1,2 @@
+import {Router} from "express"; import * as c from "../controllers/serverController.js"; import requireAuth from "../middleware/requireAuth.js";
+const r=Router();r.get("/slot-availability",c.slots);r.get("/mine",requireAuth,c.mine);r.get("/",c.list);r.get("/:id",c.one);r.post("/",requireAuth,c.create);r.put("/:id",requireAuth,c.update);r.delete("/:id",requireAuth,c.remove);r.post("/:id/favorite",requireAuth,c.favorite);r.post("/:id/analytics",c.analytics);r.post("/:id/bump-checkout",c.bump);export default r;

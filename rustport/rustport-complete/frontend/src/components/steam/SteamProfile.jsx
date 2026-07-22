@@ -1,0 +1,1 @@
+import SteamAvatar from "./SteamAvatar"; export default function SteamProfile({user}){return <div className="steam-profile"><SteamAvatar user={user}/><div><strong>{user?.displayName}</strong><small>{user?.steamId}</small></div></div>;}

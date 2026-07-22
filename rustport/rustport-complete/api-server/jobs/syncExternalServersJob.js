@@ -1,0 +1,1 @@
+import cron from "node-cron"; import {syncExternalServers} from "../services/externalServerService.js"; cron.schedule("0 */12 * * *",()=>syncExternalServers().then(r=>console.log("Rust server sync",r)));

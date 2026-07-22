@@ -1,0 +1,2 @@
+import {useEffect,useState} from "react"; import {useParams} from "react-router-dom"; import {getPost} from "../api/blogApi"; import {formatDate} from "../utils/formatters";
+export default function BlogPostPage(){const {slug}=useParams();const [post,setPost]=useState(null);useEffect(()=>{getPost(slug).then(d=>setPost(d.post));},[slug]);if(!post)return null;return <article className="container article-page"><img src={post.featuredImage} alt=""/><time>{formatDate(post.publishedAt)}</time><h1>{post.title}</h1><div className="article-content">{post.content}</div></article>;}

@@ -1,0 +1,1 @@
+import { FiTrendingUp } from "react-icons/fi"; export default function ServerPosition({position,estimatedGain}){return <div className="position-chip"><strong>#{position||"—"}</strong>{estimatedGain&&<span><FiTrendingUp/> +{estimatedGain} spots</span>}</div>;}

@@ -1,0 +1,11 @@
+import { Router } from "express";
+import passport from "../config/passport.js";
+import { env } from "../config/environment.js";
+import { me, logout, demoLogin } from "../controllers/authController.js";
+const r=Router();
+r.get("/me",me);
+r.get("/demo",demoLogin);
+r.get("/steam",env.steamApiKey?passport.authenticate("steam"):demoLogin);
+r.get("/steam/return",env.steamApiKey?passport.authenticate("steam",{failureRedirect:"/"}):demoLogin,(_req,res)=>res.redirect(env.frontendUrl));
+r.post("/logout",logout);
+export default r;

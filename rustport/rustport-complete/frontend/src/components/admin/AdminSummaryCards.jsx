@@ -1,0 +1,2 @@
+import {formatCurrency,formatNumber} from "../../utils/formatters";
+export default function AdminSummaryCards({data={}}){const cards=[["Total revenue",formatCurrency(data.totalRevenue)],["Monthly revenue",formatCurrency(data.monthlyRevenue)],["Active listings",formatNumber(data.activeListings)],["Users",formatNumber(data.users)],["Blog posts",formatNumber(data.blogPosts)],["Contacts",formatNumber(data.contacts)]];return <div className="summary-grid">{cards.map(([a,b])=><article key={a}><span>{a}</span><strong>{b}</strong></article>)}</div>;}

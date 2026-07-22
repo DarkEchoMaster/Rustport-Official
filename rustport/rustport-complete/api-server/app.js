@@ -1,0 +1,40 @@
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import compression from "compression";
+import passport from "./config/passport.js";
+import { sessionMiddleware } from "./config/session.js";
+import { env } from "./config/environment.js";
+import { webhook } from "./controllers/paymentController.js";
+import authRoutes from "./routes/authRoutes.js";
+import serverRoutes from "./routes/serverRoutes.js";
+import blogRoutes from "./routes/blogRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+import steamRoutes from "./routes/steamRoutes.js";
+import errorHandler from "./middleware/errorHandler.js";
+
+const app = express();
+app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
+app.use(cors({ origin: env.frontendUrl, credentials: true }));
+app.use(compression());
+
+// Stripe needs the exact raw request body for signature validation.
+app.post("/api/payments/webhook", express.raw({ type: "application/json" }), webhook);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(sessionMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use("/uploads", express.static(new URL("./uploads", import.meta.url).pathname));
+app.get("/api/health", (_req, res) => res.json({ ok: true, name: "Rustport API", environment: env.nodeEnv }));
+app.use("/api/auth", authRoutes);
+app.use("/api/servers", serverRoutes);
+app.use("/api/blog", blogRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/steam", steamRoutes);
+app.use(errorHandler);
+export default app;

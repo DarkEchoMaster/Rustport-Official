@@ -1,0 +1,11 @@
+import api from "./apiClient";
+export const getServers = params => api.get("/servers", { params }).then(r => r.data);
+export const getServer = id => api.get(`/servers/${id}`).then(r => r.data);
+export const getMyServers = () => api.get("/servers/mine").then(r => r.data);
+export const getSlotAvailability = () => api.get("/servers/slot-availability").then(r => r.data);
+export const createServer = data => api.post("/servers", data, { headers: { "Content-Type": "multipart/form-data" } }).then(r => r.data);
+export const updateServer = (id, data) => api.put(`/servers/${id}`, data, { headers: { "Content-Type": "multipart/form-data" } }).then(r => r.data);
+export const deleteServer = id => api.delete(`/servers/${id}`).then(r => r.data);
+export const favoriteServer = id => api.post(`/servers/${id}/favorite`).then(r => r.data);
+export const bumpServer = id => api.post(`/servers/${id}/bump-checkout`).then(r => r.data);
+export const trackServerAction = (id, action) => api.post(`/servers/${id}/analytics`, { action }).then(r => r.data);

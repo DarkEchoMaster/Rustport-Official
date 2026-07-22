@@ -1,0 +1,1 @@
+import ServerCard from "./ServerCard"; import EmptyState from "../ui/EmptyState"; export default function ServerList({servers=[],onOpen}){return servers.length?<div className="server-list">{servers.map(s=><ServerCard key={s.id} server={s} onOpen={onOpen}/>)}</div>:<EmptyState title="No matching servers" text="Try another search or filter."/>;}
