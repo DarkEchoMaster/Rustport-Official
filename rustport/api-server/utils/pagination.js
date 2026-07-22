@@ -1,0 +1,1 @@
+export const pageValues=(query,defaultLimit=15)=>{const page=Math.max(1,Number(query.page)||1);const limit=Math.min(100,Math.max(1,Number(query.limit)||defaultLimit));return{page,limit,offset:(page-1)*limit};};

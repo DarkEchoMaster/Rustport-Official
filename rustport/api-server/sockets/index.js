@@ -1,0 +1,2 @@
+import {Server} from "socket.io";
+export function initSockets(server){const io=new Server(server,{cors:{origin:process.env.FRONTEND_URL||"http://localhost:5173",credentials:true}});io.on("connection",socket=>{socket.emit("site:online-count",{count:io.engine.clientsCount});socket.on("disconnect",()=>io.emit("site:online-count",{count:io.engine.clientsCount}));});setInterval(()=>io.emit("server:stats",{updatedAt:new Date().toISOString()}),30000);return io;}

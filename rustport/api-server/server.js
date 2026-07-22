@@ -1,0 +1,2 @@
+import "dotenv/config"; import http from "http"; import app from "./app.js"; import {initSockets} from "./sockets/index.js"; import "./jobs/syncExternalServersJob.js"; import "./jobs/expireListingsJob.js"; import "./jobs/refreshServerStatsJob.js";
+const server=http.createServer(app);initSockets(server);const port=Number(process.env.PORT||5000);server.listen(port,()=>console.log(`Rustport API running on http://localhost:${port}`));

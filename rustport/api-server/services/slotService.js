@@ -1,0 +1,1 @@
+export const getAvailability=()=>({premium:Array.from({length:5},(_,i)=>({position:i+1,available:i>1,nextAvailable:i<=1?new Date(Date.now()+7*86400000).toISOString():null})),featured:Array.from({length:10},(_,i)=>({position:i+1,available:i!==3}))});

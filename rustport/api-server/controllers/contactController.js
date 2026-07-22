@@ -1,0 +1,2 @@
+import {sendSupportEmail} from "../services/emailService.js"; import {sendPivotText} from "../services/pivotService.js";
+export const create=async(req,res)=>{const item={id:Date.now(),name:req.body.name,email:req.body.email,phone:req.body.phone,subject:req.body.subject,message:req.body.message,status:"new",createdAt:new Date().toISOString()};await Promise.all([sendSupportEmail(item),sendPivotText(item)]);res.status(201).json({submitted:true,id:item.id});};

@@ -1,0 +1,1 @@
+import ServerCard from "./ServerCard"; export default function FeaturedServerCard(p){return <div className="featured-server"><span className="featured-label">Featured</span><ServerCard {...p}/></div>;}

@@ -1,0 +1,2 @@
+import {Router} from "express"; import passport from "../config/passport.js"; import {me,logout,demoLogin} from "../controllers/authController.js";
+const r=Router();r.get("/me",me);r.get("/demo",demoLogin);r.get("/steam",process.env.STEAM_API_KEY?passport.authenticate("steam"):demoLogin);r.get("/steam/return",process.env.STEAM_API_KEY?passport.authenticate("steam",{failureRedirect:"/"}):demoLogin,(req,res)=>res.redirect(process.env.FRONTEND_URL||"http://localhost:5173"));r.post("/logout",logout);export default r;

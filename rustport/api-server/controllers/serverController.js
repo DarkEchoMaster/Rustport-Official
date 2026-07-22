@@ -1,0 +1,11 @@
+import {demoServers} from "../services/externalServerService.js"; import {getAvailability} from "../services/slotService.js"; import {pageValues} from "../utils/pagination.js";
+export const list=(req,res)=>{const {page,limit,offset}=pageValues(req.query);let rows=[...demoServers];if(req.query.search){const q=req.query.search.toLowerCase();rows=rows.filter(s=>`${s.name} ${s.address} ${s.tags.join(" ")}`.toLowerCase().includes(q));}if(req.query.region)rows=rows.filter(s=>s.region===req.query.region);if(req.query.tag)rows=rows.filter(s=>s.tags.includes(req.query.tag));const premium=demoServers.slice(0,5),featured=demoServers.slice(5,15);res.json({premium,featured,servers:rows.slice(offset,offset+limit),pagination:{page,limit,total:rows.length,pageCount:Math.ceil(rows.length/limit)}});};
+export const one=(req,res)=>{const s=demoServers.find(x=>x.id===Number(req.params.id));s?res.json({server:s}):res.status(404).json({message:"Server not found."});};
+export const mine=(req,res)=>res.json({servers:demoServers.slice(0,2)});
+export const slots=(req,res)=>res.json(getAvailability());
+export const create=(req,res)=>res.status(201).json({id:Date.now(),saved:true,checkoutUrl:null});
+export const update=(req,res)=>res.json({updated:true});
+export const remove=(req,res)=>res.json({deleted:true});
+export const favorite=(req,res)=>res.json({favorited:true});
+export const analytics=(req,res)=>res.json({tracked:true});
+export const bump=(req,res)=>res.json({checkoutUrl:null,demo:true});

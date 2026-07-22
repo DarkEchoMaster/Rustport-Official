@@ -1,0 +1,1 @@
+import {Router} from "express"; import adminOnly from "../middleware/adminOnly.js"; import {dashboard,contacts} from "../controllers/adminController.js"; const r=Router();r.use(adminOnly);r.get("/dashboard",dashboard);r.get("/contacts",contacts);export default r;
